@@ -31,6 +31,32 @@ namespace StringCalculatorKata.Tests
 
         }
 
+        [Fact]
+        public void ShouldReturnIEnumWithSumZeroIfInputIsEmpty()
+        {
+            // Arrange
+            var expected = new int[] { 0 };
+
+            // Act
+            var result = _converter.Convert("");
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
+
+        [Theory]
+        [InlineData("0,1", new int[] {0,1})]
+        [InlineData("1,2", new int[] {1,2})] 
+        public void ShouldReturnParsedNumbersFromTheInput(string input, int[] expected)
+        {
+            // Act
+            var result = _converter.Convert(input);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
 
 
 
