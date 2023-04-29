@@ -10,16 +10,31 @@ namespace StringCalculatorKata
     public class Converter : IConverter
     {
 
-        public IEnumerable<int> Convert(string input)
+        public IEnumerable<int> Convert(string? input, string? delimiters)
         {
-            if (input == null || input == string.Empty)
+            if (string.IsNullOrEmpty(input))
             {
                 return new List<int> { 0 };
             }
 
+            string delimitersToPass = ",\n";
+
+            Console.WriteLine(delimitersToPass.Length);
+           
+            if (!string.IsNullOrEmpty(delimiters))
+            {
+                foreach (char delimiter in delimiters)
+                {
+                    if (delimiters.IndexOf(delimiter) > 1)
+                    {
+                        delimitersToPass += delimiter;
+                    }
+                }
+            }
+
 
             List<int> result = new();
-            List<string> numbers = input.Split(new char[] { ',', '\n' }).ToList();
+            List<string> numbers = input.Split(delimitersToPass.ToCharArray()).ToList();
 
             foreach (string number in numbers)
             {

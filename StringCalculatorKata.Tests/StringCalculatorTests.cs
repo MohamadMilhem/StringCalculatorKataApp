@@ -22,7 +22,7 @@ namespace StringCalculatorKata.Tests
         public void ShouldReturnZeroIfInputIsNull()
         {
             // Arrange
-            _converter.Setup(x => x.Convert(null)).Returns(new int[] { 0 });
+            _converter.Setup(x => x.Convert(null, It.IsAny<string?>())).Returns(new int[] { 0 });
 
             // Act
             var result = _calculator.Add(null);
@@ -36,7 +36,7 @@ namespace StringCalculatorKata.Tests
         public void ShouldReturnZeroIfInputIsEmpty()
         {
             // Arrange
-            _converter.Setup(x => x.Convert("")).Returns(new int[] { 0 });
+            _converter.Setup(x => x.Convert("", It.IsAny<string?>())).Returns(new int[] { 0 });
 
             // Act
             var result = _calculator.Add("");
@@ -52,7 +52,7 @@ namespace StringCalculatorKata.Tests
         public void ShouldReturnTheSameNumberIfInputOnlyOneNumber(string input, int[] numbers)
         {
             // Arrange
-            _converter.Setup(x => x.Convert(input)).Returns(numbers);
+            _converter.Setup(x => x.Convert(input, It.IsAny<string?>())).Returns(numbers);
             var expected = numbers.Sum(x => x);
 
             // Act
@@ -68,7 +68,7 @@ namespace StringCalculatorKata.Tests
         public void ShouldReturnTheSumOfTwoNumbersInInput(string input, int[] numbers)
         {
             // Arrange
-            _converter.Setup(x => x.Convert(input)).Returns(numbers);
+            _converter.Setup(x => x.Convert(input, It.IsAny<string?>())).Returns(numbers);
             var expected = numbers.Sum(x => x);
             // Act
             var result = _calculator.Add(input);
@@ -78,11 +78,12 @@ namespace StringCalculatorKata.Tests
         }
 
         [Theory]
-        [InlineData("1,\n2", new int[] { 1, 2 })]
+        [InlineData("1\n2", new int[] { 1, 2 })]
+        [InlineData("1\n2\n3", new int[] { 1, 2, 3 })]
         public void ShouldReturnTheSumOfNumbersInInputWithNewLines(string input, int[] numbers)
         {
             // Arrange
-            _converter.Setup(x => x.Convert(input)).Returns(numbers);
+            _converter.Setup(x => x.Convert(input, It.IsAny<string?>())).Returns(numbers);
             var expected = numbers.Sum(x => x);
 
 
@@ -93,6 +94,24 @@ namespace StringCalculatorKata.Tests
             Assert.Equal(expected, result);
         }
 
+
+        [Theory]
+        [InlineData("1;2", "//;", new int[] { 1, 2 })]
+        [InlineData("1!2,3", "//!", new int[] { 1, 2, 3 })]
+        public void ShouldReturnSumOfParsedNumbersBasedOnCustomDelimiters(string input, string delimiters ,int[] numbers)
+        {
+            // Arrange
+            _converter.Setup(x => x.Convert(input, delimiters)).Returns(numbers);
+            var expected = numbers.Sum();
+
+            // Act
+            var result = _calculator.Add(input, delimiters);
+
+            // Assert
+            Assert.Equal(expected, result);
+
+
+        }
 
     }
 }
