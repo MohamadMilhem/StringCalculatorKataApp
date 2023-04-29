@@ -95,5 +95,18 @@ namespace StringCalculatorKata.Tests
             Assert.Equal(expected, result);
         }
 
+        [Fact]
+        public void ShouldReturnParsedBigNumbers()
+        {
+            // Arrange
+            var expected = new int[] { 1001, 1002, 1312 };
+
+            // Act
+            var result = _converter.Convert("1001,1002,1312");
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
     }
 }
