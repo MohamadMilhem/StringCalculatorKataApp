@@ -12,6 +12,12 @@ namespace StringCalculatorKata
 
         public IEnumerable<int> Convert(string input)
         {
+            if (input == null || input == string.Empty)
+            {
+                return new List<int> { 0 };
+            }
+
+
             List<int> result = new();
             List<string> numbers = input.Split(',').ToList();
 

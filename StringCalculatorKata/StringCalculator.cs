@@ -18,10 +18,6 @@ namespace StringCalculatorKata
 
         public int Add(string? numbers)
         {
-            if (numbers == null || numbers == string.Empty)
-            {
-                return 0;
-            }
 
             var parsedNumbers = _converter.Convert(numbers);
 

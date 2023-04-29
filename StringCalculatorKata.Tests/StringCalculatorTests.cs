@@ -21,7 +21,8 @@ namespace StringCalculatorKata.Tests
         [Fact]
         public void ShouldReturnZeroIfInputIsNull()
         {
-
+            // Arrange
+            _converter.Setup(x => x.Convert(null)).Returns(new int[] { 0 });
 
             // Act
             var result = _calculator.Add(null);
@@ -34,6 +35,8 @@ namespace StringCalculatorKata.Tests
         [Fact]
         public void ShouldReturnZeroIfInputIsEmpty()
         {
+            // Arrange
+            _converter.Setup(x => x.Convert("")).Returns(new int[] { 0 });
 
             // Act
             var result = _calculator.Add("");
