@@ -7,8 +7,11 @@ using StringCalculatorKata.Interfaces;
 
 namespace StringCalculatorKata
 {
+    
+
     public class StringCalculator : IStringCalculator
     {
+        const int MaxNumber = 1000;
         private readonly IConverter _converter;
 
         public StringCalculator(IConverter converter)
@@ -25,7 +28,11 @@ namespace StringCalculatorKata
 
             foreach (var number in parsedNumbers)
             {
-                if (number >= 0)
+                if (number > MaxNumber)
+                {
+                    continue;
+                }
+                else if (number >= 0)
                 {
                     answer += number;
                 }
