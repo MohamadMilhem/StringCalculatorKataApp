@@ -128,5 +128,22 @@ namespace StringCalculatorKata.Tests
         }
 
 
+        [Fact]
+        public void ShouldIgnoreBigNumbers()
+        {
+            // Arrange
+            _converter.Setup(x => x.Convert(It.IsAny<string?>(), It.IsAny<string?>()))
+                .Returns(new int[] { 1, 2, 1001, 1002 });
+            var expected = 3;
+
+            // Act 
+            var result = _calculator.Add("1,2,1001,1002");
+
+            // Assert
+            Assert.Equal(expected, result);
+
+        }
+
+
     }
 }
