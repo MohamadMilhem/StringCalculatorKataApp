@@ -16,10 +16,10 @@ namespace StringCalculatorKata
             _converter = converter;
         }
 
-        public int Add(string? numbers)
+        public int Add(string? numbers, string? delimiters = null)
         {
 
-            var parsedNumbers = _converter.Convert(numbers);
+            var parsedNumbers = _converter.Convert(numbers, delimiters);
 
 
             return parsedNumbers.Sum();
