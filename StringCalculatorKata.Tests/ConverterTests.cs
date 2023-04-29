@@ -57,7 +57,16 @@ namespace StringCalculatorKata.Tests
             Assert.Equal(expected, result);
         }
 
+        [Theory]
+        [InlineData("1\n2", new int[] { 1, 2 })]
+        public void ShouldReturnParsedNumbersWithNewLines(string input, int[] expected)
+        {
+            // Act
+            var result = _converter.Convert(input);
 
+            // Assert
+            Assert.Equal(expected, result);
+        }
 
 
     }

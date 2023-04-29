@@ -19,7 +19,7 @@ namespace StringCalculatorKata
 
 
             List<int> result = new();
-            List<string> numbers = input.Split(',').ToList();
+            List<string> numbers = input.Split(new char[] { ',', '\n' }).ToList();
 
             foreach (string number in numbers)
             {
