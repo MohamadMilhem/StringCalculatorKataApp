@@ -12,10 +12,14 @@ namespace StringCalculatorKata
 
         public int Add(string? numbers)
         {
+            if (numbers == null || numbers == string.Empty)
+            {
+                return 0;
+            }
 
+            var number = Int32.Parse(numbers);
 
-
-            return -1;
+            return number;
         }
 
 
