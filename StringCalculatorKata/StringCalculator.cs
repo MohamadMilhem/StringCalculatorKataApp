@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StringCalculatorKata.Interfaces;
 
 namespace StringCalculatorKata
 {
-    public class StringCalculator
+    public class StringCalculator : IStringCalculator
     {
-        public StringCalculator() { }
+        private readonly IConverter _converter;
+
+        public StringCalculator(IConverter converter)
+        {
+            _converter = converter;
+        }
 
         public int Add(string? numbers)
         {

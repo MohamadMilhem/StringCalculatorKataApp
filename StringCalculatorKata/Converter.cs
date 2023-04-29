@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StringCalculatorKata.Interfaces;
 
 namespace StringCalculatorKata
 {
-    public class Converter
+    public class Converter : IConverter
     {
 
         public IEnumerable<int> Convert(string input)
@@ -16,7 +17,7 @@ namespace StringCalculatorKata
 
             foreach (string number in numbers)
             {
-                var parsed = Int32.Parse(number);
+                var parsed = int.Parse(number);
                 result.Add(parsed);
             }
 

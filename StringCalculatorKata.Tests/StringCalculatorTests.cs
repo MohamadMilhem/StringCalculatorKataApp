@@ -1,15 +1,28 @@
+using StringCalculatorKata.Interfaces;
+
+
 namespace StringCalculatorKata.Tests
 {
     public class StringCalculatorTests
     {
+        private readonly Converter _converter;
+        private readonly StringCalculator _calculator;
+
+        public StringCalculatorTests()
+        {
+            _converter = new Converter();
+            _calculator = new StringCalculator(_converter);
+        }
+
+
+
         [Fact]
         public void ShouldReturnZeroIfInputIsNull()
         {
-            // Arrange
-            var Calculator = new StringCalculator();
+
             
             // Act
-            var result = Calculator.Add(null);
+            var result = _calculator.Add(null);
 
            // Assert
             Assert.Equal(0, result);
@@ -19,11 +32,9 @@ namespace StringCalculatorKata.Tests
         [Fact]
         public void ShouldReturnZeroIfInputIsEmpty()
         {
-            // Arrange
-            var Calculator = new StringCalculator();
 
             // Act
-            var result = Calculator.Add("");
+            var result = _calculator.Add("");
 
             // Assert
             Assert.Equal(0, result);
@@ -36,11 +47,10 @@ namespace StringCalculatorKata.Tests
         public void ShouldReturnTheSameNumberIfInputOnlyOneNumber(string input)
         {
             // Arrange
-            var Calculator = new StringCalculator();
             var expected = Int32.Parse(input);
 
             // Act
-            var result = Calculator.Add(input);
+            var result = _calculator.Add(input);
 
             // Assert
             Assert.Equal(expected, result);
