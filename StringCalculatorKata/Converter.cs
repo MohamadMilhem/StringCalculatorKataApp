@@ -12,7 +12,7 @@ namespace StringCalculatorKata
 
         public IEnumerable<int> Convert(string input)
         {
-            List<int> result = new List<int>();
+            List<int> result = new();
             List<string> numbers = input.Split(',').ToList();
 
             foreach (string number in numbers)

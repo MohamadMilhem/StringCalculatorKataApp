@@ -23,9 +23,10 @@ namespace StringCalculatorKata
                 return 0;
             }
 
-            var number = Int32.Parse(numbers);
+            var parsedNumbers = _converter.Convert(numbers);
 
-            return number;
+
+            return parsedNumbers.Sum();
         }
 
 

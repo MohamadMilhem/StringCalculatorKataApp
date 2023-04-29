@@ -3,15 +3,17 @@ using StringCalculatorKata.Interfaces;
 
 namespace StringCalculatorKata.Tests
 {
+    using Moq;
+
     public class StringCalculatorTests
     {
-        private readonly Converter _converter;
+        private readonly Mock<IConverter> _converter;
         private readonly StringCalculator _calculator;
 
         public StringCalculatorTests()
         {
-            _converter = new Converter();
-            _calculator = new StringCalculator(_converter);
+            _converter = new Mock<IConverter>();
+            _calculator = new StringCalculator(_converter.Object);
         }
 
 
@@ -20,11 +22,11 @@ namespace StringCalculatorKata.Tests
         public void ShouldReturnZeroIfInputIsNull()
         {
 
-            
+
             // Act
             var result = _calculator.Add(null);
 
-           // Assert
+            // Assert
             Assert.Equal(0, result);
 
         }
@@ -42,21 +44,35 @@ namespace StringCalculatorKata.Tests
         }
 
         [Theory]
-        [InlineData("1")]
-        [InlineData("123")]
-        public void ShouldReturnTheSameNumberIfInputOnlyOneNumber(string input)
+        [InlineData("1", new int[] { 1 })]
+        [InlineData("123", new int[] { 123 })]
+        public void ShouldReturnTheSameNumberIfInputOnlyOneNumber(string input, int[] numbers)
         {
             // Arrange
-            var expected = Int32.Parse(input);
+            _converter.Setup(x => x.Convert(input)).Returns(numbers);
+            var expected = numbers.Sum(x => x);
 
+            // Act
+            var result = _calculator.Add(input);
+
+            // Assert
+            Assert.Equal(expected , result);
+        }
+
+        [Theory]
+        [InlineData("0,1", new int[] {0, 1})]
+        [InlineData("1,2", new int[] {1, 2})]
+        public void ShouldReturnTheSumOfTwoNumbersInInput(string input, int[] numbers)
+        {
+            // Arrange
+            _converter.Setup(x => x.Convert(input)).Returns(numbers);
+            var expected = numbers.Sum(x => x);
             // Act
             var result = _calculator.Add(input);
 
             // Assert
             Assert.Equal(expected, result);
         }
-
-
 
 
     }
