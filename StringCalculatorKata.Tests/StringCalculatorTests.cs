@@ -59,17 +59,33 @@ namespace StringCalculatorKata.Tests
             var result = _calculator.Add(input);
 
             // Assert
-            Assert.Equal(expected , result);
+            Assert.Equal(expected, result);
         }
 
         [Theory]
-        [InlineData("0,1", new int[] {0, 1})]
-        [InlineData("1,2", new int[] {1, 2})]
+        [InlineData("0,1", new int[] { 0, 1 })]
+        [InlineData("1,2", new int[] { 1, 2 })]
         public void ShouldReturnTheSumOfTwoNumbersInInput(string input, int[] numbers)
         {
             // Arrange
             _converter.Setup(x => x.Convert(input)).Returns(numbers);
             var expected = numbers.Sum(x => x);
+            // Act
+            var result = _calculator.Add(input);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("1,\n2", new int[] { 1, 2 })]
+        public void ShouldReturnTheSumOfNumbersInInputWithNewLines(string input, int[] numbers)
+        {
+            // Arrange
+            _converter.Setup(x => x.Convert(input)).Returns(numbers);
+            var expected = numbers.Sum(x => x);
+
+
             // Act
             var result = _calculator.Add(input);
 
