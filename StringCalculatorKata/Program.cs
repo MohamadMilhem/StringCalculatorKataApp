@@ -5,7 +5,7 @@ namespace StringCalculatorKata
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter 0, 1 or 2 numbers to add:");
+            Console.WriteLine("Enter numbers to add:");
             var input = Console.ReadLine();
             var converter = new Converter();
             var Calculator = new StringCalculator(converter);
