@@ -21,8 +21,21 @@ namespace StringCalculatorKata
 
             var parsedNumbers = _converter.Convert(numbers, delimiters);
 
+            int answer = 0;
 
-            return parsedNumbers.Sum();
+            foreach (var number in parsedNumbers)
+            {
+                if (number >= 0)
+                {
+                    answer += number;
+                }
+                else
+                {
+                    throw new Exception("negatives not allowed");
+                }
+            }
+
+            return answer;
         }
 
 
