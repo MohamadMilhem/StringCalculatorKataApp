@@ -82,6 +82,18 @@ namespace StringCalculatorKata.Tests
             Assert.Equal(expected, result);
         }
 
+        [Theory]
+        [InlineData("-1;-2", "//;", new int[] { -1, -2 })]
+        [InlineData("-1!-2,-3", "//!", new int[] { -1, -2, -3 })]
+        public void ShouldReturnParsedNegativeNumbers(string input, string delimiters, int[] expected)
+        {
+
+            // Act
+            var result = _converter.Convert(input, delimiters);
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
 
     }
 }
