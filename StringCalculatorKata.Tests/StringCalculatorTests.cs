@@ -113,5 +113,20 @@ namespace StringCalculatorKata.Tests
 
         }
 
+        [Fact]
+        public void ShouldThrowExceptionIfNegNumbersDetected()
+        {
+            // Arrange 
+            _converter.Setup(x => x.Convert(It.IsAny<string?>(), It.IsAny<string?>()))
+                .Returns(new int[] { 1, -2, });
+
+
+
+            // Act & Assert
+            var exception = Assert.Throws<Exception>(() => _calculator.Add("1,-2"));
+            Assert.Equal("negatives not allowed", exception.Message);
+        }
+
+
     }
 }
